@@ -4,7 +4,7 @@ export async function POST(req) {
   const body = await req.json();
 
   // CALL YOUR EXTERNAL API
-  const response = await fetch("http://localhost:8000/api/user/login", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/user/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body)
@@ -45,7 +45,7 @@ export async function POST(req) {
 
 // export async function GET() {
 //   try {
-//     const response = await fetch("http://localhost:8000/api/user/users", {
+//     const response = await fetch("{process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/user/users", {
 //       method: "GET",
 //       headers: { "Content-Type": "application/json" },
 //     });

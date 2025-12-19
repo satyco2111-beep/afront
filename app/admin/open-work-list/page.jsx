@@ -6,7 +6,7 @@ export default function ProviderWorksPage() {
   const [works, setWorks] = useState([]);
 
   async function loadWorks() {
-    const res = await fetch("http://localhost:8000/api/works");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works`);
     const data = await res.json();
     setWorks(data.works);
   }
@@ -15,7 +15,7 @@ export default function ProviderWorksPage() {
     const cookie = await fetch("/api/cookies");
     const { id } = await cookie.json();
 
-    await fetch(`http://localhost:8000/api/works/${swrid}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${swrid}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: "ACCEPTED", sprovid: id })

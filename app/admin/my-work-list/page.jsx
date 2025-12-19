@@ -11,7 +11,7 @@ export default function MyWorksPage() {
       const cookieData = await cookieRes.json();
 
       if (!cookieData.id) return;
-      const res = await fetch(`http://localhost:8000/api/works/user/${cookieData.id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/user/${cookieData.id}`);
       const data = await res.json();
       setWorks(data.works || []);
     }

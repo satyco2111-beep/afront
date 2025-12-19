@@ -36,17 +36,17 @@ export default function AddWorkPage() {
 
   // FETCH CITY, LOCAL AREA, SERVICE
   useEffect(() => {
-    fetch("http://localhost:8000/api/city")
+    fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/city`)
       .then((res) => res.json())
       .then((data) => setCities(data.citys || []))
       .catch(console.log);
 
-    fetch("http://localhost:8000/api/local-aria")
+    fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/local-aria`)
       .then((res) => res.json())
       .then((data) => setAllLocalAreas(data.loaclArias || []))
       .catch(console.log);
 
-    fetch("http://localhost:8000/api/services")
+    fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/services`)
       .then((res) => res.json())
       .then((data) => setServices(data.services || []))
       .catch(console.log);
@@ -80,7 +80,7 @@ export default function AddWorkPage() {
     setLoading(true);
     setMsg(null);
 
-    const response = await fetch("http://localhost:8000/api/works/register", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -118,7 +118,7 @@ export default function AddWorkPage() {
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
       <div className="w-full max-w-2xl bg-white shadow-lg rounded-lg p-6">
         <h2 className="text-2xl font-bold text-center mb-4">Add Work</h2>
-
+ <p>dddd{process.env.NEXT_PUBLIC_BACKEN_BASE_URL}</p>
         {msg && (
           <p
             className={`p-2 mb-3 text-center rounded ${

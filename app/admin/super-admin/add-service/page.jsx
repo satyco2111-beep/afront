@@ -14,7 +14,7 @@ export default function RegisterServicePage() {
 
     try {
       const res = await fetch(
-        "http://localhost:8000/api/services/register",
+        `${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/services/register`,
         {
           method: "POST",
           headers: {

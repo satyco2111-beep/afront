@@ -23,7 +23,7 @@ export default function LogoutPage() {
 
       async function logoutHandler() {
         try {
-          await fetch("http://localhost:8000/api/user/logout", {
+          await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/user/logout`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ suid }),

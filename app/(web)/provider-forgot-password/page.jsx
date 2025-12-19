@@ -15,7 +15,7 @@ export default function ForgotPassword() {
         setLoading(true);
 
         try {
-            const res = await fetch("http://localhost:8000/api/providers/forgot-password", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/providers/forgot-password`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

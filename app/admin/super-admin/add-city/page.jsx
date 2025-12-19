@@ -13,7 +13,7 @@ export default function RegisterCityPage() {
     setMsg(null);
 
     try {
-      const res = await fetch("http://localhost:8000/api/city/register", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/city/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

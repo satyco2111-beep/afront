@@ -9,7 +9,7 @@ export default function WorksListPage() {
   useEffect(() => {
     async function fetchWorks() {
       try {
-        const res = await fetch("http://localhost:8000/api/works", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works`, {
           cache: "no-store"
         });
         const data = await res.json();

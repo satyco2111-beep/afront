@@ -19,7 +19,7 @@ export async function proxy(request) {
   let result;
   try {
     if(role == "2"){
-       const verifyReq = await fetch("http://localhost:8000/api/providers/verify-token", {
+       const verifyReq = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/providers/verify-token`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ "id":`${id}`, "token":token,  "role":role }),
@@ -27,7 +27,7 @@ export async function proxy(request) {
 
      result = await verifyReq.json();
     }else{
-   const verifyReq = await fetch("http://localhost:8000/api/user/verify-token", {
+   const verifyReq = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/user/verify-token`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ "id":`${id}`, "token":token,  "role":role }),

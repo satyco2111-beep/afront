@@ -23,7 +23,7 @@ export default function LogoutPage() {
 
       async function logoutHandler() {
         try {
-          await fetch("http://localhost:8000/api/providers/logout", {
+          await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/providers/logout`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ sprovid }),

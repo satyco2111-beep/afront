@@ -14,7 +14,7 @@ export default function RegisterLocalAreaPage() {
 
   // FETCH ALL CITIES
   useEffect(() => {
-    fetch("http://localhost:8000/api/city")
+    fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/city`)
       .then((res) => res.json())
       .then((data) => setCities(data.citys || []))
       .catch(() =>
@@ -35,7 +35,7 @@ export default function RegisterLocalAreaPage() {
 
     try {
       const res = await fetch(
-        "http://localhost:8000/api/local-aria/register",
+        `${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/local-aria/register`,
         {
           method: "POST",
           headers: {

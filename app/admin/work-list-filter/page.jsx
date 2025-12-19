@@ -24,15 +24,15 @@ export default function WorksPage() {
 
     // FETCH FILTER DATA
     useEffect(() => {
-        fetch("http://localhost:8000/api/city")
+        fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/city`)
             .then(res => res.json())
             .then(d => setCities(d.citys || []));
 
-        fetch("http://localhost:8000/api/local-aria")
+        fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/local-aria`)
             .then(res => res.json())
             .then(d => setLocals(d.loaclArias || []));
 
-        fetch("http://localhost:8000/api/services")
+        fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/services`)
             .then(res => res.json())
             .then(d => setServices(d.services || []));
     }, []);
@@ -49,7 +49,7 @@ export default function WorksPage() {
             limit,
         });
 
-        const res = await fetch(`http://localhost:8000/api/works?${params}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works?${params}`);
         const data = await res.json();
 
         if (data.success) {

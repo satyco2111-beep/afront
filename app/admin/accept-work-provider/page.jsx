@@ -29,11 +29,11 @@ export default function ProviderWorksPage() {
   // ------------------------------------
   useEffect(() => {
     async function loadMeta() {
-      const c = await fetch("http://localhost:8000/api/city");
+      const c = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/city`);
       const citiesData = await c.json();
       setCities(citiesData.citys);
 
-      const la = await fetch("http://localhost:8000/api/local-aria");
+      const la = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/local-aria`);
       const localData = await la.json();
       setLocalArias(localData.loaclArias);
     }
@@ -58,7 +58,7 @@ export default function ProviderWorksPage() {
 
     try {
       const params = new URLSearchParams(filters).toString();
-      const res = await fetch(`http://localhost:8000/api/works?${params}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works?${params}`);
       const data = await res.json();
 
       setWorks(data.works || []);
@@ -89,7 +89,7 @@ export default function ProviderWorksPage() {
     const cookie = await fetch("/api/cookies");
     const { id } = await cookie.json();
 
-    await fetch(`http://localhost:8000/api/works/${swrid}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${swrid}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: "ACCEPTED", sprovid: id }),

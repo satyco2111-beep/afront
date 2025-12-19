@@ -29,7 +29,7 @@ export default function WorksPage() {
     try {
       const params = new URLSearchParams(filters).toString();
 
-      const res = await fetch(`http://localhost:8000/api/works?${params}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works?${params}`);
       const data = await res.json();
 
       setWorks(data.works || []);

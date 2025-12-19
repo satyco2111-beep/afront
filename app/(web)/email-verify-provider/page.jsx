@@ -17,7 +17,7 @@ export default function VerifyEmailPage() {
     const otp = e.target.otp.value;
 
     try {
-      const res = await fetch("http://localhost:8000/api/providers/verify-email", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/providers/verify-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, otp }),

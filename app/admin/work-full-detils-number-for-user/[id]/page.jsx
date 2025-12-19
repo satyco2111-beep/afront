@@ -23,7 +23,7 @@ export default function WorkDetailsPage() {
 
     async function fetchDetails() {
       try {
-        const workRes = await fetch(`http://localhost:8000/api/works/${id}`);
+        const workRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${id}`);
         const workData = await workRes.json();
         if (!workData.success) throw new Error("Work not found");
 
@@ -36,10 +36,10 @@ export default function WorkDetailsPage() {
           localRes,
           serviceRes,
         ] = await Promise.all([
-          fetch(`http://localhost:8000/api/providers/provider/${w.sprovid ? w.sprovid :1}`),
-          fetch(`http://localhost:8000/api/city`),
-          fetch(`http://localhost:8000/api/local-aria`),
-          fetch(`http://localhost:8000/api/services`),
+          fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/providers/provider/${w.sprovid ? w.sprovid :1}`),
+          fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/city`),
+          fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/local-aria`),
+          fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/services`),
         ]);
 
         const providerData = await providerRes.json();

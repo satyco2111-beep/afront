@@ -69,7 +69,7 @@ export default function UserAdminHeader() {
        
 
           {/* Admin */}
-          <Link href="/admin/all-work-list" onClick={() => setOpen(false)}>
+          {/* <Link href="/admin/all-work-list" onClick={() => setOpen(false)}>
             All Work List
           </Link>
           <Link href="/admin/add-work" onClick={() => setOpen(false)}>
@@ -77,7 +77,9 @@ export default function UserAdminHeader() {
           </Link>
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>
             My Work List
-          </Link>
+          </Link> */}
+           <Link href="/admin/add-work">Add Work</Link>
+          <Link href="/admin/my-work-list">My Work List</Link>
         </nav>
       )}
     </header>

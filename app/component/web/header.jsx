@@ -143,7 +143,7 @@ export default function Header() {
           </details>
 
           {/* Admin */}
-          <Link href="/admin/all-work-list" onClick={() => setOpen(false)}>
+          {/* <Link href="/admin/all-work-list" onClick={() => setOpen(false)}>
             All Work List
           </Link>
           <Link href="/admin/add-work" onClick={() => setOpen(false)}>
@@ -151,7 +151,8 @@ export default function Header() {
           </Link>
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>
             My Work List
-          </Link>
+          </Link> */}
+         <Link href="/admin/">Dhashboard  </Link>
         </nav>
       )}
     </header>

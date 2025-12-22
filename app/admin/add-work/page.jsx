@@ -118,7 +118,7 @@ export default function AddWorkPage() {
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
       <div className="w-full max-w-2xl bg-white shadow-lg rounded-lg p-6">
         <h2 className="text-2xl font-bold text-center mb-4">Add Work</h2>
- <p>dddd{process.env.NEXT_PUBLIC_BACKEN_BASE_URL}</p>
+ {/* <p>dddd{process.env.NEXT_PUBLIC_BACKEN_BASE_URL}</p> */}
         {msg && (
           <p
             className={`p-2 mb-3 text-center rounded ${

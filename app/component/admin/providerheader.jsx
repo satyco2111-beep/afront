@@ -81,8 +81,8 @@ export default function ProviderAdminHeader() {
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>
             My Work List
           </Link> */}
-          <Link href="/admin//work-list-filter">Find Work</Link>
-          <Link href="/admin/my-work-provider">My Work</Link>
+          <Link href="/admin//work-list-filter" onClick={() => setOpen(false)}>Find Work</Link>
+          <Link href="/admin/my-work-provider" onClick={() => setOpen(false)}>My Work</Link>
         </nav>
       )}
     </header>

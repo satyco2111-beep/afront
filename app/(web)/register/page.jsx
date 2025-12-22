@@ -52,7 +52,7 @@ export default function RegisterPage() {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Register User</h2>
 
         {/* NAME INPUT */}
         <label className="block mb-4">

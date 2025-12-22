@@ -78,8 +78,8 @@ export default function UserAdminHeader() {
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>
             My Work List
           </Link> */}
-           <Link href="/admin/add-work">Add Work</Link>
-          <Link href="/admin/my-work-list">My Work List</Link>
+           <Link href="/admin/add-work" onClick={() => setOpen(false)}>Add Work</Link>
+          <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>My Work List</Link>
         </nav>
       )}
     </header>

@@ -54,12 +54,13 @@ export default function Header() {
 
             {loginOpen && (
               <div className="absolute bg-white shadow-lg rounded mt-2 py-2 w-40 z-20">
-                <Link href="/login" className="block px-4 py-2 hover:bg-gray-100">
+                <Link href="/login" className="block px-4 py-2 hover:bg-gray-100" onClick={()=> setLoginOpen(!loginOpen)}>
                    Login User
                 </Link>
                 <Link
                   href="/login-provider"
                   className="block px-4 py-2 hover:bg-gray-100"
+                   onClick={()=> setLoginOpen(!loginOpen)}
                 >
                   Login Provider
                 </Link>
@@ -81,12 +82,13 @@ export default function Header() {
 
             {registerOpen && (
               <div className="absolute bg-white shadow-lg rounded mt-2 py-2 w-48 z-20">
-                <Link href="/register" className="block px-4 py-2 hover:bg-gray-100">
+                <Link href="/register" className="block px-4 py-2 hover:bg-gray-100"  onClick={()=> setRegisterOpen(!registerOpen)}>
                   Register User
                 </Link>
                 <Link
                   href="/register-provider"
                   className="block px-4 py-2 hover:bg-gray-100"
+                  onClick={()=> setRegisterOpen(!registerOpen)}
                 >
                   Register Provider
                 </Link>
@@ -152,7 +154,7 @@ export default function Header() {
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>
             My Work List
           </Link> */}
-         <Link href="/admin/">Dhashboard  </Link>
+         <Link href="/admin/" onClick={() => setOpen(false)} >Dhashboard  </Link>
         </nav>
       )}
     </header>

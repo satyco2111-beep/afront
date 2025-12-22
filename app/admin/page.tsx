@@ -11,7 +11,7 @@ export default async function AdminHome() {
   const role = cookieStore.get("role")?.value; // ✔ correct
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-100 ">
    
    {/* {role== "2" ? <ProviderAdminHeader /> : <UserAdminHeader/>}
    <div>
@@ -21,7 +21,7 @@ export default async function AdminHome() {
     
       AdminHome page — ID: {id}, Role: {role}
       {role === "1" ?<p>You are User  </p>:<p>You are Provider  </p>}
-    </>
+    </div>
   );
 }
 

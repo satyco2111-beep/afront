@@ -6,7 +6,7 @@ export default function WebLayout({
   children: React.ReactNode
 }) {
   return (
-    <main>
+    <main className="min-h-screen bg-gray-100 ">
       <Header />
       {children}
       </main>

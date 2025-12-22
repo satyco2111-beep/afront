@@ -19,7 +19,7 @@ export default function MyWorksPage() {
   }, []);
 
   return (
-    <div className="p-6">
+    <div className="p-6 min-h-screen bg-gray-100 ">
       <h2 className="text-xl font-bold mb-4">My Works</h2>
 
       {works.map((w) => (

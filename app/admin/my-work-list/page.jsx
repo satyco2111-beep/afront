@@ -1,9 +1,53 @@
+// "use client";
+// import { useEffect, useState } from "react";
+// import Link from "next/link";
+
+// export default function MyWorksPage() {
+//   const [works, setWorks] = useState([]);
+
+//   useEffect(() => {
+//     async function fetchUserWorks() {
+//       const cookieRes = await fetch("/api/cookies");
+//       const cookieData = await cookieRes.json();
+
+//       if (!cookieData.id) return;
+//       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/user/${cookieData.id}`);
+//       const data = await res.json();
+//       setWorks(data.works || []);
+//     }
+//     fetchUserWorks();
+//   }, []);
+
+//   return (
+//     <div className="p-6 min-h-screen bg-gray-100 ">
+//       <h2 className="text-xl font-bold mb-4">My Works</h2>
+
+//       {works.map((w) => (
+//         <div key={w._id} className="bg-white shadow p-4 rounded mb-3">
+//           <h3 className="font-bold">{w.title}</h3>
+//           <p>Status: {w.status}</p>
+//           <p>Payment: {w.paymentStatus}</p>
+
+//           <p>  <span className="text-xs bg-blue-100 px-2 py-1 rounded"><Link href={`work-full-detils-number-for-user/${w.swrid}`}> Full Details </Link> </span> </p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+
+
+
+
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function MyWorksPage() {
   const [works, setWorks] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(1);
+  const limit = 6;
 
   useEffect(() => {
     async function fetchUserWorks() {
@@ -11,16 +55,27 @@ export default function MyWorksPage() {
       const cookieData = await cookieRes.json();
 
       if (!cookieData.id) return;
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/user/${cookieData.id}`);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/user/${cookieData.id}?page=${page}&limit=${limit}`
+      );
+
       const data = await res.json();
+
       setWorks(data.works || []);
+      setPages(data.pagination?.pages || 1);
     }
+
     fetchUserWorks();
-  }, []);
+  }, [page]);
 
   return (
-    <div className="p-6 min-h-screen bg-gray-100 ">
+    <div className="p-6 min-h-screen bg-gray-100">
       <h2 className="text-xl font-bold mb-4">My Works</h2>
+
+      {works.length === 0 && (
+        <p className="text-gray-500">No works found.</p>
+      )}
 
       {works.map((w) => (
         <div key={w._id} className="bg-white shadow p-4 rounded mb-3">
@@ -28,9 +83,41 @@ export default function MyWorksPage() {
           <p>Status: {w.status}</p>
           <p>Payment: {w.paymentStatus}</p>
 
-          <p>  <span className="text-xs bg-blue-100 px-2 py-1 rounded"><Link href={`work-full-detils-number-for-user/${w.swrid}`}> Full Details </Link> </span> </p>
+          <p className="mt-2">
+            <span className="text-xs bg-blue-100 px-2 py-1 rounded">
+              <Link href={`work-full-detils-number-for-user/${w.swrid}`}>
+                Full Details
+              </Link>
+            </span>
+          </p>
         </div>
       ))}
+
+      {/* Pagination Controls */}
+      {pages > 1 && (
+        <div className="flex items-center gap-4 mt-6">
+          <button
+            disabled={page === 1}
+            onClick={() => setPage((p) => p - 1)}
+            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+          >
+            Prev
+          </button>
+
+          <span className="text-sm">
+            Page {page} of {pages}
+          </span>
+
+          <button
+            disabled={page === pages}
+            onClick={() => setPage((p) => p + 1)}
+            className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }
+

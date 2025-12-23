@@ -16,6 +16,8 @@ export default function WorkDetailsPage() {
   const [city, setCity] = useState(null);
   const [local, setLocal] = useState(null);
   const [service, setService] = useState(null);
+    const [updatepage, setUpdatePage] = useState(1);
+
 
   // 🔁 FETCH ALL DETAILS
   useEffect(() => {
@@ -57,7 +59,7 @@ export default function WorkDetailsPage() {
     }
 
     fetchDetails();
-  }, [id]);
+  }, [id,updatepage]);
 
   // ✅ STATUS UPDATE FUNCTION (NEW)
   const updateStatus = async (newStatus) => {
@@ -76,6 +78,7 @@ export default function WorkDetailsPage() {
 
       const data = await res.json();
       if (!data.success) throw new Error("Failed to update status");
+      if(data.success){ updatePaymentDue(work.price)}
 
       setWork(data.work); // update UI instantly
     } catch (err) {
@@ -84,6 +87,80 @@ export default function WorkDetailsPage() {
       setActionLoading(false);
     }
   };
+
+
+  // updatePaymentDue ==================================
+  const updatePaymentDue = async (price) => {
+    if (!work) return;
+       const cookie = await fetch("/api/cookies");
+    const { id } = await cookie.json();
+     const duePrice = Number(price) * 0.05;
+     console.log("duePrice",duePrice)
+
+    try {
+      setActionLoading(true);
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/providers/payment-due/${id}?amount=${duePrice}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({sprovid: id }),
+      });
+
+      const data = await res.json(); console.log("data; ",data)
+      if (!data.success) throw new Error("Failed to update payment due status");
+
+      // setWork(data.work); // update UI instantly
+      setUpdatePage(2)
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+   // updatePaymentComplete ================
+
+   const updatePaymentComplete = async () => {
+    if (!work) return;
+       const cookie = await fetch("/api/cookies");
+    const { id } = await cookie.json();
+
+    try {
+      setActionLoading(true);
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/providers/payment-complete/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({sprovid: id }),
+      });
+
+      const data = await res.json();
+      if (!data.success) throw new Error("Failed to update complete Pay status");
+      
+
+
+      // ====
+            const resUpW = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${work.swrid}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "DONE",paymentStatus:"PAID" ,sprovid: id }),
+      });
+
+      const dataW = await resUpW.json();
+      if (!dataW.success) throw new Error("Failed to update status");
+
+      setWork(dataW.work);
+
+
+      // setWork(data.work); // update UI instantly
+            // setUpdatePage(3)
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
 
   if (loading) {
     return <div className="p-6 text-center">Loading work details...</div>;
@@ -137,7 +214,9 @@ export default function WorkDetailsPage() {
             {work.status === "OPEN"?
             <button
               // disabled={actionLoading || work.status === "accepted"}
-              onClick={() => updateStatus("ACCEPTED")}
+              // onClick={() => updateStatus("ACCEPTED")}
+              // onClick={() => {updateStatus("ACCEPTED");updatePaymentDue(work.price)}}
+              onClick={() => {updateStatus("ACCEPTED")}}
               className="bg-yellow-300 px-4 py-2 rounded disabled:opacity-50"
             >
               ACCEPT
@@ -158,7 +237,16 @@ export default function WorkDetailsPage() {
               onClick={() => updateStatus("COMPLETED")}
               className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50"
             >
-              DONE
+              COMPLETED
+            </button>:null}
+              {work.status === "COMPLETED"?
+             <button
+             
+              // onClick={() => updateStatus("DONE")}
+              onClick={() => updatePaymentComplete()}
+              className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50"
+            >
+              PAY
             </button>:null}
           </div>
         </section>

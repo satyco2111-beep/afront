@@ -208,7 +208,7 @@ export default function AddWorkPage() {
 
           <input
             name="sprovid"
-            className="border p-2 rounded"
+            className="border p-2 rounded hidden"
             placeholder="Provider ID (optional)"
             value={form.sprovid}
             onChange={handleChange}

@@ -77,7 +77,7 @@ export default function WorkDetailsPage() {
       });
 
       const data = await res.json();
-      if (!data.success) throw new Error("Failed to update status");
+      if (!data.success) throw new Error("Failed to update status. Your payment may be due, or something went wrong !");
       if(data.success){ updatePaymentDue(work.price)}
 
       setWork(data.work); // update UI instantly

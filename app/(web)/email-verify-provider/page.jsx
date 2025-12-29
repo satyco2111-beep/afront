@@ -36,7 +36,7 @@ export default function VerifyEmailPage() {
       setMessage("Email verified successfully! Redirecting...");
 
       setTimeout(() => {
-        window.location.href = "/login";
+        window.location.href = "/login-provider";
       }, 2000);
 
     } catch (err) {

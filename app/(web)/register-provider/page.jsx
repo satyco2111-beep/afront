@@ -38,6 +38,9 @@ export default function RegisterPage() {
 
       setMessage("Registration successful! Check your email for OTP.");
       setForm({ name: "", email: "",  mobile:"", password: "" });
+         setTimeout(() => {
+        window.location.href = "/email-verify-provider";
+      }, 2000);
 
     } catch (error) {
       setLoading(false);

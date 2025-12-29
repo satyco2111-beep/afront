@@ -36,8 +36,11 @@ export default function RegisterPage() {
         return;
       }
 
-      setMessage("Registration successful! Check your email for OTP.");
+      setMessage("Registration successful! Check your email for OTP. Redirecting...");
       setForm({ name: "", email: "",  mobile:"", password: "" });
+      setTimeout(() => {
+        window.location.href = "/email-verify";
+      }, 2000);
 
     } catch (error) {
       setLoading(false);

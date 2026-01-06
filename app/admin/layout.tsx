@@ -16,7 +16,7 @@ export default async function AdminLayout({
     <main>
         {role== "2" ? <ProviderAdminHeader /> : <UserAdminHeader/>}
    <div>
-    <span > {role== "2" ? <ProviderLogoutButton /> : <UserLogoutButton/>}</span>
+    {/* <span > {role== "2" ? <ProviderLogoutButton /> : <UserLogoutButton/>}</span> */}
    </div>
       {children}
       </main>

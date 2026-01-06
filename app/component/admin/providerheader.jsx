@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import ProviderLogoutButton from "@/app/component/admin/providerLogouteBtn/logoutbtn"
 
 export default function ProviderAdminHeader() {
   const [open, setOpen] = useState(false);     // mobile menu
@@ -30,7 +31,7 @@ export default function ProviderAdminHeader() {
       <div className="max-w-6xl mx-auto flex justify-between items-center">
 
         {/* LOGO */}
-        <Link href="/" className="text-xl font-bold">
+        <Link href="/admin" className="text-xl font-bold">
           MySite pro
         </Link>
 
@@ -49,6 +50,7 @@ export default function ProviderAdminHeader() {
           <Link href="/admin//work-list-filter">Find Work</Link>
           {/* <Link href="/admin/accept-work-provider">accept-work-provider</Link> */}
           <Link href="/admin/my-work-provider">My Work</Link>
+          <ProviderLogoutButton />
           
         </nav>
 
@@ -66,8 +68,8 @@ export default function ProviderAdminHeader() {
       {/* MOBILE MENU */}
       {open && (
         <nav className="md:hidden flex flex-col gap-4 mt-4 px-4 pb-4 text-lg">
-          <Link href="/" onClick={() => setOpen(false)}>Home</Link>
-          <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+          <Link href="/admin" onClick={() => setOpen(false)}>Home</Link>
+          {/* <Link href="/about" onClick={() => setOpen(false)}>About</Link> */}
 
        
 
@@ -83,6 +85,7 @@ export default function ProviderAdminHeader() {
           </Link> */}
           <Link href="/admin//work-list-filter" onClick={() => setOpen(false)}>Find Work</Link>
           <Link href="/admin/my-work-provider" onClick={() => setOpen(false)}>My Work</Link>
+          <ProviderLogoutButton />
         </nav>
       )}
     </header>

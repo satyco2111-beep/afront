@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import UserLogoutButton from "@/app/component/admin/userLogouteBtn/logoutbtn"
 
 export default function UserAdminHeader() {
   const [open, setOpen] = useState(false);     // mobile menu
@@ -30,7 +31,7 @@ export default function UserAdminHeader() {
       <div className="max-w-6xl mx-auto flex justify-between items-center">
 
         {/* LOGO */}
-        <Link href="/" className="text-xl font-bold">
+        <Link href="/admin" className="text-xl font-bold">
           MySite user
         </Link>
 
@@ -47,6 +48,7 @@ export default function UserAdminHeader() {
           {/* <Link href="/admin/all-work-list">All Work List</Link>
            <Link href="/admin/open-work-list">open-work-list</Link>
           <Link href="/admin/work-filter">work-filter</Link> */}
+          <UserLogoutButton />
         </nav>
 
         {/* MOBILE MENU BUTTON */}
@@ -63,8 +65,8 @@ export default function UserAdminHeader() {
       {/* MOBILE MENU */}
       {open && (
         <nav className="md:hidden flex flex-col gap-4 mt-4 px-4 pb-4 text-lg">
-          <Link href="/" onClick={() => setOpen(false)}>Home</Link>
-          <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+          <Link href="/admin" onClick={() => setOpen(false)}>Home</Link>
+          {/* <Link href="/about" onClick={() => setOpen(false)}>About</Link> */}
 
        
 
@@ -80,6 +82,7 @@ export default function UserAdminHeader() {
           </Link> */}
            <Link href="/admin/add-work" onClick={() => setOpen(false)}>Add Work</Link>
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>My Work List</Link>
+                 <UserLogoutButton />
         </nav>
       )}
     </header>

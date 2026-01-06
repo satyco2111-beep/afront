@@ -161,6 +161,54 @@ export default function WorkDetailsPage() {
     }
   };
 
+
+
+    // updateStatus CANCELED  ================
+
+   const updateStausCancele = async () => {
+    if (!work) return;
+       const cookie = await fetch("/api/cookies");
+    const { id } = await cookie.json();
+
+    try {
+      setActionLoading(true);
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/providers/payment-complete/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({sprovid: id }),
+      });
+
+      const data = await res.json();
+      if (!data.success) throw new Error("Failed to update complete Pay status");
+      
+
+
+      // ====
+            const resUpW = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${work.swrid}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "CANCELED" ,sprovid: id }),
+      });
+
+      const dataW = await resUpW.json();
+      if (!dataW.success) throw new Error("Failed to update status");
+
+      setWork(dataW.work);
+
+
+      // setWork(data.work); // update UI instantly
+            // setUpdatePage(3)
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+
+
+
   if (loading) {
     return <div className="p-6 text-center">Loading work details...</div>;
   }
@@ -291,6 +339,14 @@ export default function WorkDetailsPage() {
 
         {/* META */}
         <section className="border-t pt-4 text-sm text-gray-500">
+                     {work.status === "ACCEPTED"?
+            <button
+              // disabled={actionLoading || work.status !== "IN PROGRESS"}
+              onClick={() => updateStausCancele()}
+              className="bg-red-300 px-4 py-2 rounded disabled:opacity-50"
+            >
+              CANCELE 
+            </button>:null}
           {/* <p>Work ID: {work.swrid}</p> */}
           <p>Created At: {new Date(work.createdAt).toLocaleString()}</p>
         </section>

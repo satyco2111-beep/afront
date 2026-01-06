@@ -4,18 +4,8 @@ import { useRouter } from "next/navigation";
 export default function UserLogoutButton() {
   const router = useRouter();
   return (
-    // <p>
-    //   <button style={{    position: "fixed",right: "10px"}} onClick={() => router.push("/admin/logout")}>
-    //   Logout
-    // </button>
-    // </p>
-<div className="relative ">
-  {/* other page content */}
-
-  <div className="float-right  top-4 right-0 z-50">
-    <button
-      onClick={() => router.push("/admin/logout")}
-      className="
+    <p>
+      <button className="
         flex items-center gap-2
         rounded-full
         bg-red-600
@@ -26,12 +16,11 @@ export default function UserLogoutButton() {
         hover:bg-red-700 hover:scale-105
         active:scale-95
         focus:outline-none focus:ring-2 focus:ring-red-400
-      "
-    >
-      🔒 Logout
+      " onClick={() => router.push("/admin/logout")}>
+      Logout
     </button>
-  </div>
-</div>
+    </p>
+
 
 
   );

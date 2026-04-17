@@ -30,6 +30,9 @@ export default function WebHome() {
             <Link href={'/register-provider'} >  <button className="border-2 border-white hover:bg-white hover:text-blue-700 px-8 py-3 rounded-full font-semibold transition">
               Register as Provider
             </button> </Link>
+            <Link href={'/browse-providers'} >  <button className="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-full font-semibold transition">
+              Browse Providers
+            </button> </Link>
           </div>
         </div>
       </section>

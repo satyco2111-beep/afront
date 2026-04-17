@@ -65,19 +65,22 @@ export default function WorkDetailsPage() {
   const updateStatus = async (newStatus) => {
     if (!work) return;
        const cookie = await fetch("/api/cookies");
-    const { id } = await cookie.json();
+    const { token } = await cookie.json();
 
     try {
       setActionLoading(true);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${work.swrid}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/byprovider/${work.swrid}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus, sprovid: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
       });
 
       const data = await res.json();
-      if (!data.success) throw new Error("Failed to update status. Your payment may be due, or something went wrong !");
+      if (!data.success) throw new Error(data.message);
       if(data.success){ updatePaymentDue(work.price)}
 
       setWork(data.work); // update UI instantly
@@ -123,7 +126,7 @@ export default function WorkDetailsPage() {
    const updatePaymentComplete = async () => {
     if (!work) return;
        const cookie = await fetch("/api/cookies");
-    const { id } = await cookie.json();
+    const { id, token } = await cookie.json();
 
     try {
       setActionLoading(true);
@@ -140,10 +143,13 @@ export default function WorkDetailsPage() {
 
 
       // ====
-            const resUpW = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${work.swrid}`, {
+            const resUpW = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/byprovider/${work.swrid}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "DONE",paymentStatus:"PAID" ,sprovid: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: "DONE", paymentStatus: "PAID" }),
       });
 
       const dataW = await resUpW.json();
@@ -246,7 +252,8 @@ export default function WorkDetailsPage() {
               onClick={() => updatePaymentComplete()}
               className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50"
             >
-              PAY
+              OK
+              {/* PAY */}
             </button>:null}
           </div>
         </section>

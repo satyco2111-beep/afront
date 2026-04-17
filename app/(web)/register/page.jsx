@@ -7,6 +7,7 @@ export default function RegisterPage() {
     email: "",
     mobile:"",
     password: "",
+    referralCode: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ export default function RegisterPage() {
       }
 
       setMessage("Registration successful! Check your email for OTP. Redirecting...");
-      setForm({ name: "", email: "",  mobile:"", password: "" });
+      setForm({ name: "", email: "",  mobile:"", password: "", referralCode: "" });
       setTimeout(() => {
         window.location.href = "/email-verify";
       }, 2000);
@@ -106,6 +107,19 @@ export default function RegisterPage() {
             onChange={handleChange}
             className="mt-1 w-full p-2 border rounded-lg"
             required
+          />
+        </label>
+
+        {/* REFERRAL CODE (OPTIONAL) */}
+        <label className="block mb-6">
+          <span className="block text-sm font-medium">Referral Code (optional)</span>
+          <input
+            type="text"
+            name="referralCode"
+            value={form.referralCode}
+            onChange={handleChange}
+            className="mt-1 w-full p-2 border rounded-lg"
+            placeholder="USR-XXXXXX"
           />
         </label>
 

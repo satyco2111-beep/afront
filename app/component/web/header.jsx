@@ -39,6 +39,7 @@ export default function Header() {
 
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>
+          <Link href="/browse-providers">Browse Providers</Link>
 
           {/* LOGIN DROPDOWN */}
           <div ref={loginRef} className="relative">
@@ -119,6 +120,7 @@ export default function Header() {
         <nav className="md:hidden flex flex-col gap-4 mt-4 px-4 pb-4 text-lg">
           <Link href="/" onClick={() => setOpen(false)}>Home</Link>
           <Link href="/about" onClick={() => setOpen(false)}>About</Link>
+          <Link href="/browse-providers" onClick={() => setOpen(false)}>Browse Providers</Link>
 
           {/* MOBILE LOGIN DROPDOWN */}
           <details>

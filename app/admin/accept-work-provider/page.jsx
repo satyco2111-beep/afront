@@ -87,12 +87,15 @@ export default function ProviderWorksPage() {
   // ------------------------------------
   async function acceptWork(swrid) {
     const cookie = await fetch("/api/cookies");
-    const { id } = await cookie.json();
+    const { token } = await cookie.json();
 
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${swrid}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/byprovider/${swrid}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "ACCEPTED", sprovid: id }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ status: "ACCEPTED" }),
     });
 
     fetchWorks();

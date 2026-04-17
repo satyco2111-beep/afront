@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import CommentsAndReviews from "@/app/component/CommentsAndReviews";
 
 export default function WorkDetailsPage() {
   const { id } = useParams(); // swrid
@@ -17,6 +18,9 @@ export default function WorkDetailsPage() {
   const [local, setLocal] = useState(null);
   const [service, setService] = useState(null);
   const [updatepage, setUpdatePage] = useState(1);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userComments, setUserComments] = useState([]);
+  const [loadingUserComments, setLoadingUserComments] = useState(false);
 
   // 🔁 FETCH ALL DETAILS
   useEffect(() => {
@@ -24,6 +28,14 @@ export default function WorkDetailsPage() {
 
     async function fetchDetails() {
       try {
+        const cookieRes = await fetch("/api/cookies");
+        const cookieJson = await cookieRes.json();
+        setCurrentUser({
+          id: cookieJson?.id,
+          type: cookieJson?.role === "2" ? "provider" : "user",
+          name: cookieJson?.name || "Unknown",
+        });
+
         const workRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${id}`);
         const workData = await workRes.json();
         if (!workData.success) throw new Error("Work not found");
@@ -52,6 +64,22 @@ export default function WorkDetailsPage() {
         setCity(cityData.citys.find(c => c.sctyid === w.sctyid));
         setLocal(localData.loaclArias.find(l => l.sloctyid === w.sloctyid));
         setService(serviceData.services.find(s => s.ssrvcid === w.ssrvcid));
+
+        // Fetch user comments if work is ACCEPTED
+        if (w.status === "ACCEPTED" && w.suid) {
+          setLoadingUserComments(true);
+          try {
+            const commentRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/comment/user/${w.suid}`);
+            const commentData = await commentRes.json();
+            if (commentData.success) {
+              setUserComments(commentData.comments || []);
+            }
+          } catch (err) {
+            console.error("Failed to fetch user comments:", err);
+          } finally {
+            setLoadingUserComments(false);
+          }
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -66,15 +94,18 @@ export default function WorkDetailsPage() {
   const updateStatus = async (newStatus) => {
     if (!work) return;
        const cookie = await fetch("/api/cookies");
-    const { id } = await cookie.json();
+    const { token } = await cookie.json();
 
     try {
       setActionLoading(true);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${work.swrid}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/byprovider/${work.swrid}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus, sprovid: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
       });
 
       const data = await res.json();
@@ -123,7 +154,7 @@ export default function WorkDetailsPage() {
    const updatePaymentComplete = async () => {
     if (!work) return;
        const cookie = await fetch("/api/cookies");
-    const { id } = await cookie.json();
+    const { id, token } = await cookie.json();
 
     try {
       setActionLoading(true);
@@ -140,10 +171,13 @@ export default function WorkDetailsPage() {
 
 
       // ====
-            const resUpW = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${work.swrid}`, {
+            const resUpW = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/byprovider/${work.swrid}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "DONE",paymentStatus:"PAID" ,sprovid: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: "DONE", paymentStatus: "PAID" }),
       });
 
       const dataW = await resUpW.json();
@@ -168,7 +202,7 @@ export default function WorkDetailsPage() {
    const updateStausCancele = async () => {
     if (!work) return;
        const cookie = await fetch("/api/cookies");
-    const { id } = await cookie.json();
+    const { id, token } = await cookie.json();
 
     try {
       setActionLoading(true);
@@ -185,10 +219,13 @@ export default function WorkDetailsPage() {
 
 
       // ====
-            const resUpW = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/${work.swrid}`, {
+            const resUpW = await fetch(`${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/byprovider/${work.swrid}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "CANCELED" ,sprovid: id }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: "CANCELED" }),
       });
 
       const dataW = await resUpW.json();
@@ -332,7 +369,8 @@ export default function WorkDetailsPage() {
               onClick={() => updatePaymentComplete()}
               className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50"
             >
-              PAY
+              {/* PAY */}
+              OK
             </button>:null}
           </div>
         </section>
@@ -350,6 +388,56 @@ export default function WorkDetailsPage() {
           {/* <p>Work ID: {work.swrid}</p> */}
           <p>Created At: {new Date(work.createdAt).toLocaleString()}</p>
         </section>
+
+        {/* USER COMMENTS - Show when work is ACCEPTED */}
+        {work && work.status === "ACCEPTED" && user && (
+          <section className="border-t pt-4 mt-6">
+            <h2 className="text-2xl font-semibold mb-4">About This User</h2>
+            <div className="bg-white rounded shadow p-6">
+              <h3 className="text-xl font-semibold mb-4">{user.name}'s Comments History</h3>
+              <p className="text-sm text-gray-600 mb-4">Comments left by providers on their work with this user</p>
+              
+              {loadingUserComments ? (
+                <p className="text-gray-500">Loading comments...</p>
+              ) : userComments.length === 0 ? (
+                <p className="text-gray-500">No comments yet from providers who have worked with this user.</p>
+              ) : (
+                <div className="space-y-4">
+                  {userComments.slice(0, 5).map((comment) => (
+                    <div key={comment.scommentid} className="border-l-4 border-blue-500 pl-4 py-2">
+                      <div className="flex justify-between">
+                        <strong className="text-gray-800">{comment.authorName}</strong>
+                        <span className="text-xs text-gray-500">Provider</span>
+                      </div>
+                      <p className="text-gray-700 mt-2">{comment.comment}</p>
+                      <p className="text-xs text-gray-400 mt-1">
+                        {new Date(comment.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                  ))}
+                  {userComments.length > 5 && (
+                    <p className="text-center text-gray-500 text-sm mt-4">
+                      +{userComments.length - 5} more comments
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* COMMENTS AND REVIEWS */}
+        {currentUser && work && (
+          <CommentsAndReviews
+            workId={work.swrid}
+            workStatus={work.status}
+            currentUserId={currentUser.id}
+            currentUserType={currentUser.type}
+            currentUserName={currentUser.name}
+            otherUserId={work.suid}
+            backendUrl={process.env.NEXT_PUBLIC_BACKEN_BASE_URL}
+          />
+        )}
 
       </div>
     </div>

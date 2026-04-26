@@ -63,11 +63,11 @@ export default function ProviderDashboardHome() {
               Welcome{profile?.name ? `, ${profile.name}` : ""} 👋
             </h2>
             <p className="text-gray-600">Find work, complete tasks, and track your jobs.</p>
-            {stats?.payment_due && (
+            {/* {stats?.payment_due && (
               <p className="mt-2 text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 inline-block">
                 Payment due: {stats.amount_due ? `₹${stats.amount_due}` : "Yes"} — contact admin if needed.
               </p>
-            )}
+            )} */}
           </div>
           <Link
             href="/admin/profile"

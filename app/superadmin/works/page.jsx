@@ -85,6 +85,20 @@ export default function SuperAdminWorksPage() {
     );
   }
 
+
+  const getRelativeTime = (dateString) => {
+  const now = new Date();
+  const past = new Date(dateString);
+  const diffInMs = now - past;
+  const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  const diffInDays = Math.floor(diffInHours / 24);
+
+  if (diffInMinutes < 1) return "just now";
+  if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+  if (diffInHours < 24) return `${diffInHours}h ago`;
+  return `${diffInDays}d ago`;
+};
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-4">
@@ -108,13 +122,15 @@ export default function SuperAdminWorksPage() {
                 <th className="text-left p-2">Payment</th>
                 <th className="text-left p-2">User</th>
                 <th className="text-left p-2">Provider</th>
+                <th className="text-left p-2">Create Time </th>
+                <th className="text-left p-2">Last update time</th>
                 <th className="text-left p-2">Action</th>
               </tr>
             </thead>
             <tbody>
               {works.map((w) => (
                 <tr key={w._id} className="border-t">
-                  <td className="p-2 font-mono">{w.swrid}</td>
+                  <td className="p-2 font-mono"><Link href={`/superadmin/works/single/${w.swrid}`} > {w.swrid} </Link></td>
                   <td className="p-2">{w.title}</td>
                   <td className="p-2">{w.price}</td>
                   <td className="p-2">
@@ -134,6 +150,14 @@ export default function SuperAdminWorksPage() {
                   <td className="p-2">{w.paymentStatus}</td>
                   <td className="p-2 font-mono">{w.suid}</td>
                   <td className="p-2 font-mono">{w.sprovid}</td>
+                  {/* <td className="p-2 font-mono">{w.createdAt}</td> */}
+                  {/* <td className="p-2 font-mono">{w.updatedAt}</td> */}
+                  <td className="p-2 font-mono text-sm text-gray-600">
+                    {getRelativeTime(w.createdAt)}
+                  </td>
+                  <td className="p-2 font-mono text-sm text-gray-600">
+                    {getRelativeTime(w.updatedAt)}
+                  </td>
                   <td className="p-2">
                     <button onClick={() => del(w.swrid)} className="text-red-600 underline">
                       Delete

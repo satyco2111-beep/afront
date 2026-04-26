@@ -364,7 +364,7 @@ export default function WorkDetailsPage() {
             </button>:null}
             {work.status === "COMPLETED"?
              <button
-             
+              
               // onClick={() => updateStatus("DONE")}
               onClick={() => updatePaymentComplete()}
               className="bg-green-500 text-white px-4 py-2 rounded disabled:opacity-50"

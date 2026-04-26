@@ -34,6 +34,9 @@ export default function ForgotPassword() {
             setError("Failed to send request");
         } finally {
             setLoading(false);
+              setTimeout(() => {
+        window.location.href = "/email-verify-provider";
+      }, 2000);
         }
     };
 

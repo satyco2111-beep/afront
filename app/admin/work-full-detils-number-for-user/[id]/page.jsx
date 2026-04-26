@@ -4,7 +4,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import CommentsAndReviews from "@/app/component/CommentsAndReviews";
+import RequestProvider from "@/app/component/RequestProvider";
 
+ 
 export default function WorkDetailsPage() {
   const { id } = useParams(); // swrid
 
@@ -21,6 +23,41 @@ export default function WorkDetailsPage() {
   const [providerReviews, setProviderReviews] = useState([]);
   const [loadingProviderReviews, setLoadingProviderReviews] = useState(false);
 
+  const [subscription, setSubscription] = useState(null);
+  const [increasingPrice, setIncreasingPrice] = useState(false);
+
+  // Price increase options
+  const priceIncreaseOptions = [10, 30, 50, 100];
+
+  // Handle price increase
+  const handleIncreasePrice = async (increaseBy) => {
+    if (!work) return;
+    
+    try {
+      setIncreasingPrice(true);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/works/increase-price/${work.swrid}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ increaseBy }),
+        }
+      );
+
+      const data = await res.json();
+      if (data.success) {
+        setWork(data.work);
+        alert(`Price increased by ₹${increaseBy}! New price: ₹${data.newPrice}`);
+      } else {
+        alert(data.message || "Failed to increase price");
+      }
+    } catch (err) {
+      console.error("Failed to increase price:", err);
+      alert("Failed to increase price");
+    } finally {
+      setIncreasingPrice(false);
+    }
+  };
   // 🔁 FETCH ALL DETAILS
   useEffect(() => {
     if (!id) return;
@@ -58,7 +95,7 @@ export default function WorkDetailsPage() {
         const cityData = await cityRes.json();
         const localData = await localRes.json();
         const serviceData = await serviceRes.json();
-        console.log("providerData",providerData)
+        // console.log("providerData",providerData)
         setUser(providerData?.provider || null);
         setCity(cityData.citys.find(c => c.sctyid === w.sctyid));
         setLocal(localData.loaclArias.find(l => l.sloctyid === w.sloctyid));
@@ -79,6 +116,12 @@ export default function WorkDetailsPage() {
             setLoadingProviderReviews(false);
           }
         }
+
+         const subRes = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEN_BASE_URL}/api/subscription/me-user/me-user/${cookieJson?.id}`
+      );
+      const subData = await subRes.json();
+      setSubscription(subData);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -221,6 +264,22 @@ export default function WorkDetailsPage() {
             <span className="bg-blue-100 px-3 py-1 rounded">
               Price: ₹{work.price}
             </span>
+            {/* Price Increase Buttons - Only show for OPEN or REQUESTED status */}
+            {["OPEN", "REQUESTED"].includes(work.status) && (
+              <div className="flex gap-2 items-center">
+                <span className="text-sm text-gray-600">Increase:</span>
+                {priceIncreaseOptions.map((amount) => (
+                  <button
+                    key={amount}
+                    onClick={() => handleIncreasePrice(amount)}
+                    disabled={increasingPrice}
+                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm font-medium disabled:opacity-50 transition"
+                  >
+                    +₹{amount}
+                  </button>
+                ))}
+              </div>
+            )}
             <span className="bg-green-100 px-3 py-1 rounded">
               Status: {work.status || "pending"}
             </span>
@@ -318,6 +377,16 @@ export default function WorkDetailsPage() {
           {/* <p>Work ID: {work.swrid}</p> */}
           <p>Created At: {new Date(work.createdAt).toLocaleString()}</p>
         </section>
+
+        {/* REQUEST PROVIDERS - Show when work is OPEN or REQUESTED */}
+        {currentUser && work && (work.status === "OPEN" || work.status === "REQUESTED") && subscription && subscription.subscribed && (
+          <RequestProvider
+            workId={work.swrid}
+            workStatus={work.status}
+            userId={currentUser.id}
+            backendUrl={process.env.NEXT_PUBLIC_BACKEN_BASE_URL}
+          />
+        )}
 
         {/* PROVIDER REVIEWS - Show when work is ACCEPTED */}
         {work && work.status === "ACCEPTED" && user && (

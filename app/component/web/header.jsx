@@ -31,7 +31,7 @@ export default function Header() {
 
         {/* LOGO */}
         <Link href="/" className="text-xl font-bold">
-          MySite
+          Do Something
         </Link>
 
         {/* DESKTOP MENU */}
@@ -97,6 +97,8 @@ export default function Header() {
             )}
           </div>
 
+          <Link href="/install">install</Link>
+
            <Link href="/admin/">Dhashboard  </Link>
           {/* Admin pages */}
           {/* <Link href="/admin/all-work-list">All Work List</Link>
@@ -156,6 +158,7 @@ export default function Header() {
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>
             My Work List
           </Link> */}
+           <Link href="/install"  onClick={() => setOpen(false)} >install</Link>
          <Link href="/admin/" onClick={() => setOpen(false)} >Dhashboard  </Link>
         </nav>
       )}

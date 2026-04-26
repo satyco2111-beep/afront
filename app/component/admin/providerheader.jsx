@@ -32,7 +32,7 @@ export default function ProviderAdminHeader() {
 
         {/* LOGO */}
         <Link href="/admin" className="text-xl font-bold">
-          MySite pro
+         Do Something provider
         </Link>
 
         {/* DESKTOP MENU */}
@@ -47,10 +47,14 @@ export default function ProviderAdminHeader() {
           <Link href="/admin/my-work-list">My Work List</Link> */}
           {/* <Link href="/admin/all-work-list">All Work List</Link> */}
           {/* <Link href="/admin/open-work-list">open-work-list</Link> */}
-          <Link href="/admin/provider">Live Settings</Link>
+          {/* <Link href="/admin/provider">Live Settings</Link>
+          <Link href="/admin/provider-requests">📬 Requests</Link> */}
           <Link href="/admin//work-list-filter">Find Work</Link>
           {/* <Link href="/admin/accept-work-provider">accept-work-provider</Link> */}
           <Link href="/admin/my-work-provider">My Work</Link>
+          <Link href="/admin/provider-requests"> Requests</Link>
+          <Link href="/admin/subscription/me-provider">Subscription</Link>
+          <Link href="/admin/provider">Live Settings</Link>
           <Link href="/admin/buy-cradit-provider">Credit</Link>
           <Link href="/admin/referrals">Referrals</Link>
           <Link href="/admin/profile">Profile</Link>
@@ -88,9 +92,12 @@ export default function ProviderAdminHeader() {
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>
             My Work List
           </Link> */}
-          <Link href="/admin/provider" onClick={() => setOpen(false)}>Live Settings</Link>
+          {/* <Link href="/admin/provider" onClick={() => setOpen(false)}>Live Settings</Link> */}
           <Link href="/admin//work-list-filter" onClick={() => setOpen(false)}>Find Work</Link>
           <Link href="/admin/my-work-provider" onClick={() => setOpen(false)}>My Work</Link>
+            <Link href="/admin/provider-requests" onClick={() => setOpen(false)} > Requests</Link>
+          <Link href="/admin/subscription/me-provider" onClick={() => setOpen(false)} >Subscription</Link>
+          <Link href="/admin/provider" onClick={() => setOpen(false)} >Live Settings</Link>
           <Link href="/admin/buy-cradit-provider" onClick={() => setOpen(false)}>Credit</Link>
           <Link href="/admin/referrals" onClick={() => setOpen(false)}>Referrals</Link>
           <Link href="/admin/profile" onClick={() => setOpen(false)}>Profile</Link>

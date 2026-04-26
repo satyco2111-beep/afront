@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 
 export default function WorkDetailsPage() {
   const { id } = useParams(); // swrid
@@ -84,6 +84,8 @@ export default function WorkDetailsPage() {
       if(data.success){ updatePaymentDue(work.price)}
 
       setWork(data.work); // update UI instantly
+     // redirect to works list after status update
+       window.location.href = `/admin/work-full-detils-number/${work.swrid}`;
     } catch (err) {
       alert(err.message);
     } finally {

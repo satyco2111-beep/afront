@@ -29,11 +29,15 @@ export default function ForgotPassword() {
                 setError(data.message || "Something went wrong");
             } else {
                 setMessage(data.message);
+                   setTimeout(() => {
+        window.location.href = "/email-verify";
+      }, 2000);
             }
         } catch (err) {
             setError("Failed to send request");
         } finally {
             setLoading(false);
+         
         }
     };
 

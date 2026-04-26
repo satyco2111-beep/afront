@@ -77,6 +77,12 @@ export default function AddWorkPage() {
   // SUBMIT FORM
   async function handleSubmit(e) {
     e.preventDefault();
+
+
+      if (form.price < 89) {
+        alert("Price should be greater than Rs 89");
+        return;
+      }
     setLoading(true);
     setMsg(null);
 

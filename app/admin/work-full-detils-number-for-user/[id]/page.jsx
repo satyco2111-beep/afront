@@ -240,7 +240,9 @@ export default function WorkDetailsPage() {
     }
   };
   
-
+      setInterval(() => {
+      window.location.reload();
+    }, 2 * 60 * 1000);
 
 
   if (loading) {

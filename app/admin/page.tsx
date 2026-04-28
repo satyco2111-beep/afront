@@ -25,7 +25,7 @@ export default async function AdminHome() {
 
     {role== "2" ? <ProviderDashboardHome /> : <UserDashboardHome/>}
 
-
+  
     </div>
   );
 }

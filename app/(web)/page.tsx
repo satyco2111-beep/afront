@@ -1,5 +1,6 @@
 import Link from "next/link"
-
+import ServiceCard from "@/app/component/web/servicecard"
+import Footer from "@/app/component/web/footer"
 
 export default function WebHome() {
   return (
@@ -40,6 +41,8 @@ export default function WebHome() {
         </div>
       </section>
 
+      
+
       {/* HOW IT WORKS */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -75,6 +78,50 @@ export default function WebHome() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+       {/* SERVICES */}
+      <section className="py-20 bg-gray-50 px-6">
+        <h2 className="text-4xl font-bold text-center mb-12">
+          Our Services
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <ServiceCard title="Cooking" desc="Home cooking, party catering, restaurant support." />
+          <ServiceCard title="Cleaning" desc="Home, bathroom, clothes, kitchen cleaning services." />
+          <ServiceCard title="Electrical Repair" desc="Appliance repair, wiring, maintenance." />
+          <ServiceCard title="Plumbing" desc="Pipe repair, fittings, water system services." />
+          <ServiceCard title="Housekeeping" desc="Full home maintenance and support." />
+          <ServiceCard title="Custom Jobs" desc="Post any job and get matched with providers." />
+        </div>
+      </section>
+
+
+            <section className="bg-gradient-to-r from-indigo-600 to-blue-700 text-white text-center py-24 px-6">
+        <h1 className="text-5xl font-bold mb-6">
+          Hire Trusted Service Providers Easily
+        </h1>
+
+        <p className="max-w-2xl mx-auto opacity-90">
+          Post jobs for free. Connect with skilled providers. Pay securely
+          after work completion. We charge only 9% commission from providers.
+        </p>
+        <p className="max-w-2xl mx-auto opacity-90">
+        Customers can set their own price when posting a job, starting from ₹94.
+        </p>
+
+        <div className="mt-10 flex justify-center gap-4 flex-wrap">
+          <a href="/register">
+            <button className="bg-green-500 px-6 py-3 rounded-full font-semibold">
+              Post a Job (Free)
+            </button>
+          </a>
+
+          <a href="/register-provider">
+            <button className="border px-6 py-3 rounded-full">
+              Become Provider
+            </button>
+          </a>
         </div>
       </section>
 
@@ -128,69 +175,12 @@ export default function WebHome() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-black text-gray-400 text-center py-5">
+      {/* <footer className="bg-black text-gray-400 text-center py-5">
         © {new Date().getFullYear()} Work Platform. All rights reserved.
-      </footer>
+      </footer> */}
+      <Footer />
 
     </main>
 
   );
 }
-
-
-
-
-// "use client";
-// import { useState } from "react";
-
-// export default function Page() {
-//   const [pickup, setPickup] = useState("");
-//   const [drop, setDrop] = useState("");
-//   const [date, setDate] = useState("");
-//   const [time, setTime] = useState("");
-
-//   const handleSubmit = () => {
-//     alert(`Cab booked from ${pickup} to ${drop} on ${date} at ${time}`);
-//   };
-
-//   return (
-//     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-//       <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-6">
-//         <h1 className="text-2xl font-bold mb-6 text-center">Book Your Cab</h1>
-
-//         <div className="space-y-4">
-//           <input
-//             placeholder="Pickup Location"
-//             value={pickup}
-//             onChange={(e) => setPickup(e.target.value)}
-//             className="w-full p-3 border rounded-xl"
-//           />
-//           <input
-//             placeholder="Drop Location"
-//             value={drop}
-//             onChange={(e) => setDrop(e.target.value)}
-//             className="w-full p-3 border rounded-xl"
-//           />
-//           <input
-//             type="date"
-//             value={date}
-//             onChange={(e) => setDate(e.target.value)}
-//             className="w-full p-3 border rounded-xl"
-//           />
-//           <input
-//             type="time"
-//             value={time}
-//             onChange={(e) => setTime(e.target.value)}
-//             className="w-full p-3 border rounded-xl"
-//           />
-//           <button
-//             onClick={handleSubmit}
-//             className="w-full bg-blue-600 text-white p-3 rounded-xl text-lg hover:bg-blue-700 transition"
-//           >
-//             Book Now
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }

@@ -40,6 +40,7 @@ export default function Header() {
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>
           <Link href="/browse-providers">Browse Providers</Link>
+          <Link href="/services">Services</Link>
 
           {/* LOGIN DROPDOWN */}
           <div ref={loginRef} className="relative">
@@ -123,6 +124,7 @@ export default function Header() {
           <Link href="/" onClick={() => setOpen(false)}>Home</Link>
           <Link href="/about" onClick={() => setOpen(false)}>About</Link>
           <Link href="/browse-providers" onClick={() => setOpen(false)}>Browse Providers</Link>
+          <Link href="/services" onClick={() => setOpen(false)}>Services</Link>
 
           {/* MOBILE LOGIN DROPDOWN */}
           <details>

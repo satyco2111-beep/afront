@@ -3,6 +3,7 @@
 //     WebAbout
 //     </>
 // }
+import Footer from "@/app/component/web/footer";
 export default function AboutPage() {
   return (
     <main className="w-full">
@@ -13,10 +14,16 @@ export default function AboutPage() {
           <h1 className="text-5xl font-bold mb-6">
             About Our Platform
           </h1>
+                 <p>
+        DoSomething is a two-sided service marketplace connecting users
+        and service providers. Users can post unlimited jobs for free,
+        while providers accept jobs and earn money.
+      </p>
           <p className="text-lg max-w-3xl mx-auto opacity-90">
             We connect people who need work done with skilled providers who are
             ready to work and earn.
           </p>
+        
         </div>
       </section>
 
@@ -28,14 +35,15 @@ export default function AboutPage() {
             <h2 className="text-4xl font-bold mb-6">
               Who We Are
             </h2>
+            
             <p className="text-gray-600 leading-relaxed mb-4">
-              Our platform is a modern online marketplace designed to make work
+              Do Something is a modern online marketplace designed to make work
               simple, fast, and accessible for everyone. Whether you are an
               individual, a business, or a skilled professional, we provide a
               trusted space to connect, collaborate, and grow.
             </p>
             <p className="text-gray-600 leading-relaxed">
-              We believe that finding work or hiring the right person should not
+              Do Something believe that finding work or hiring the right person should not
               be complicated. That’s why we focus on simplicity, transparency,
               and reliability.
             </p>
@@ -60,7 +68,7 @@ export default function AboutPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-14">
-            Our Mission & Vision
+           Do Something Mission & Vision
           </h2>
 
           <div className="grid gap-8 md:grid-cols-2">
@@ -135,17 +143,18 @@ export default function AboutPage() {
           <p className="text-lg opacity-80 max-w-2xl mx-auto mb-10">
             Be part of a growing platform where opportunities meet talent.
           </p>
-          <button className="bg-green-500 hover:bg-green-600 px-10 py-4 rounded-full text-lg font-semibold transition">
+          <a href="/register"><button className="bg-green-500 hover:bg-green-600 px-10 py-4 rounded-full text-lg font-semibold transition">
             Get Started Today
-          </button>
+          </button></a>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-black text-gray-400 text-center py-5">
+      {/* <footer className="bg-black text-gray-400 text-center py-5">
         © {new Date().getFullYear()} Work Platform. All rights reserved.
-      </footer>
+      </footer> */}
 
+      <Footer />
     </main>
   );
 }

@@ -79,8 +79,8 @@ export default function AddWorkPage() {
     e.preventDefault();
 
 
-      if (form.price < 89) {
-        alert("Price should be greater than Rs 89");
+      if (form.price < 94) {
+        alert("Price should be greater than Rs 94");
         return;
       }
     setLoading(true);

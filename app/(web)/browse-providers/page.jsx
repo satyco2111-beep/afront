@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Footer from "@/app/component/web/footer";
+import ServiceCard from "@/app/component/web/servicecard"
+
 
 export default function BrowseProvidersPage() {
   const [loading, setLoading] = useState(false);
@@ -94,6 +97,7 @@ export default function BrowseProvidersPage() {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-2">Browse Live Providers</h1>
@@ -235,5 +239,22 @@ export default function BrowseProvidersPage() {
         </div>
       </div>
     </div>
+         {/* SERVICES */}
+      <section className="py-20 bg-gray-50 px-6">
+        <h2 className="text-4xl font-bold text-center mb-12">
+          Our Services
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <ServiceCard title="Cooking" desc="Home cooking, party catering, restaurant support." />
+          <ServiceCard title="Cleaning" desc="Home, bathroom, clothes, kitchen cleaning services." />
+          <ServiceCard title="Electrical Repair" desc="Appliance repair, wiring, maintenance." />
+          <ServiceCard title="Plumbing" desc="Pipe repair, fittings, water system services." />
+          <ServiceCard title="Housekeeping" desc="Full home maintenance and support." />
+          <ServiceCard title="Custom Jobs" desc="Post any job and get matched with providers." />
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 }

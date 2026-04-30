@@ -129,7 +129,7 @@ export default function UserDashboardHome() {
                   <div key={job.swrid} className="p-6 flex flex-wrap justify-between items-center gap-3">
                     <div>
                       <Link
-                        href={`/admin/work-full-detils/${job.swrid}`}
+                        href={`/admin/work-full-detils-number-for-user/${job.swrid}`}
                         className="font-semibold text-gray-900 hover:text-blue-600"
                       >
                         {job.title || "Untitled"}

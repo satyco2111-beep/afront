@@ -152,9 +152,15 @@ export default function ProviderCreditPage() {
       >
         {loading ? "Processing..." : "Pay with Razorpay (+5% bonus credit)"}
       </button>
-        <p className="text-xs text-gray-500 mt-2"> 
+        <p className="text-xs text-gray-500 mt-10"> 
           <a href="https://rzp.io/rzp/xjocsxbc" target="_blank" rel="noopener noreferrer"   className="w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50">Do Real Payment</a>  
         </p>
+
+       <p className="mt-10 text-sm text-gray-600">
+        Please use the above button to make a real payment and test the webhook functionality. After payment, you should see the credit added in your account with provider id
+        <p> <strong>{providerId}</strong> </p>.
+      </p>
+
 
       {/* https://rzp.io/rzp/xjocsxbc */}
     </div>

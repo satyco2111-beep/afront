@@ -48,7 +48,8 @@ export default function Services() {
                 <ServiceCard title="Electrical Repair" desc="Appliance repair, wiring, maintenance." />
                 <ServiceCard title="Plumbing" desc="Pipe repair, fittings, water system services." />
                 <ServiceCard title="Housekeeping" desc="Full home maintenance and support." />
-                <ServiceCard title="Custom Jobs" desc="Post any job and get matched with providers." />
+                <ServiceCard title="Beauty & Salon" desc="Professional beauty, grooming, makeup, and salon services at your doorstep." />
+                {/* <ServiceCard title="Custom Jobs" desc="Post any job and get matched with providers." /> */}
               </div>
             </section>
       
@@ -62,6 +63,9 @@ export default function Services() {
           <li><b>Electrical:</b> Appliance repair and maintenance.</li>
           <li><b>Plumbing:</b> Pipe fixing, water systems.</li>
           <li><b>Housekeeping:</b> Full-time or part-time support.</li>
+          <li><b>Beauty & Salon:</b>
+            Professional beauty, grooming, makeup, and salon services at your doorstep.
+            </li>
         </ul>
       </main>
 

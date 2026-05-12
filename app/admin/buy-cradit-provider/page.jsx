@@ -137,7 +137,7 @@ export default function ProviderCreditPage() {
         <p className="text-lg font-bold">{currentCredit}</p>
       </div>
 
-      <input
+      {/* <input
         type="number"
         value={credit}
         onChange={(e) => setCredit(e.target.value)}
@@ -151,13 +151,14 @@ export default function ProviderCreditPage() {
         className="w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50"
       >
         {loading ? "Processing..." : "Pay with Razorpay (+5% bonus credit)"}
-      </button>
-        <p className="text-xs text-gray-500 mt-10"> 
-          <a href="https://rzp.io/rzp/xjocsxbc" target="_blank" rel="noopener noreferrer"   className="w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50">Do Real Payment</a>  
+      </button> */}
+        <p className="text-xs text-gray-500 mt-10 py-2"> 
+          <a href="https://rzp.io/rzp/xjocsxbc" target="_blank" rel="noopener noreferrer"   className="w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50  py-2">Do  Payment and Buy Credit</a>  
         </p>
 
        <p className="mt-10 text-sm text-gray-600">
-        Please use the above button to make a real payment and test the webhook functionality. After payment, you should see the credit added in your account with provider id
+        {/* Please use the above button to make a real payment and test the webhook functionality. After payment, you should see the credit added in your account with provider id */}
+        Use this provider id  in payment page notes as <code>provider_id</code> and see credit added in your account after payment.credit price is  <b>1 INR = 1 credit </b>. You can  see the credit added in your account after payment. <br />
         <p> <strong>{providerId}</strong> </p>.
       </p>
 

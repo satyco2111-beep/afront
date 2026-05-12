@@ -45,10 +45,10 @@ export default function UserAdminHeader() {
           {/* Admin pages */}
           <Link href="/admin/add-work">Add Work</Link>
           <Link href="/admin/my-work-list">My Work List</Link>
-          <Link href="/admin/subscription/me-user">Subscription</Link>
+          {/* <Link href="/admin/subscription/me-user">Subscription</Link> */}
           <Link href="/browse-providers">Browse Providers</Link>
-          <Link href="/admin/referrals">Referrals</Link>
-          <Link href="/admin/withdraw-credit">Withdraw credit</Link>
+          {/* <Link href="/admin/referrals">Referrals</Link> */}
+          {/* <Link href="/admin/withdraw-credit">Withdraw credit</Link> */}
           <Link href="/admin/profile">Profile</Link>
           {/* <Link href="/admin/all-work-list">All Work List</Link>
            <Link href="/admin/open-work-list">open-work-list</Link>
@@ -87,10 +87,10 @@ export default function UserAdminHeader() {
           </Link> */}
           <Link href="/admin/add-work" onClick={() => setOpen(false)}>Add Work</Link>
           <Link href="/admin/my-work-list" onClick={() => setOpen(false)}>My Work List</Link>
-          <Link href="/admin/subscription/me-user" onClick={() => setOpen(false)}>Subscription</Link>
+          {/* <Link href="/admin/subscription/me-user" onClick={() => setOpen(false)}>Subscription</Link> */}
            <Link href="/browse-providers" onClick={() => setOpen(false)}>Browse Providers</Link>
-          <Link href="/admin/referrals" onClick={() => setOpen(false)}>Referrals</Link>
-          <Link href="/admin/withdraw-credit" onClick={() => setOpen(false)}>Withdraw credit</Link>
+          {/* <Link href="/admin/referrals" onClick={() => setOpen(false)}>Referrals</Link> */}
+          {/* <Link href="/admin/withdraw-credit" onClick={() => setOpen(false)}>Withdraw credit</Link> */}
           <Link href="/admin/profile" onClick={() => setOpen(false)}>Profile</Link>
                  <UserLogoutButton />
         </nav>
